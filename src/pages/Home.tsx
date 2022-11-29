@@ -1,7 +1,7 @@
 import { Grid, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.jpg";
 import icons from "../assets/icons.gif";
 import { Salecard } from "../components/Salecard";
 export const Home = () => {
