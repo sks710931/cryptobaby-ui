@@ -17,75 +17,20 @@ interface Props {
 }
 export const Buy = ({ price }: Props) => {
   const classes = UseStyle();
-  const [value, setValue] = useState(1);
-  const [rewardValue, setRewardValue] = useState(0);
-  const [nfts, setNfts] = useState<number[]>();
   const { account, library } = useWeb3React<Web3Provider>();
 
-  const getSalePriceValue = () => {
-    const mintPrice = parseUnits(Number(price * value).toString(), 18);
-    return mintPrice.toString();
-  };
-  useEffect(() => {
-    const getRewards = async () => {
-      try {
-        const provider = new JsonRpcProvider(rpc);
-        const contract = new Contract(NFTContract, abi, provider);
-        const reward = await contract.getRewards(account);
-        const nft: any[] = await contract.walletOfOwner(account);
-        if (nft.length > 0) {
-          const items = nft.map((item) => {
-            return Number(formatUnits(item, 0));
-          });
-          console.log(items);
-          setNfts(items);
-        }
-        setRewardValue(Number(formatUnits(reward, "ether")));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    if (account && library) {
-      getRewards();
-    }
-  }, [account, library]);
+  
 
-  const handleClaimRewards = async () => {
-    if (account && library) {
-      try {
-        const signer = await library.getSigner();
-        const contract = new Contract(NFTContract, abi, signer);
-        const txResult = await contract.claimRewards(nfts);
-        await txResult.wait();
-        toast.success(`${rewardValue} claimed successfully!`);
-      } catch (err: any) {
-        console.log(err);
-        if (err) {
-          if (err.code === -32000) {
-            toast("Insufficient Funds", { type: "error" });
-          } else {
-            toast.error(err.message);
-            console.log(err.code);
-          }
-        } else {
-          if (err.code === 4001) {
-            toast.error("User denied transaction signature.");
-          } else toast.error("Transaction Error");
-        }
-      }
-    }
-  };
+  
   const handleMint = async () => {
     if (account && library) {
       try {
         const signer = await library.getSigner();
-        let overrides = {
-          value: getSalePriceValue(),
-        };
+        
         const contract = new Contract(NFTContract, abi, signer);
-        const txResult = await contract.mint(value, overrides);
+        const txResult = await contract.mint();
         await txResult.wait();
-        toast.success(`${value} Ascended Masters NFT minted successfully!`);
+        toast.success(`1 CryptoBaby NFT minted successfully!`);
       } catch (err: any) {
         console.log(err);
         if (err) {
@@ -101,18 +46,6 @@ export const Buy = ({ price }: Props) => {
           } else toast.error("Transaction Error");
         }
       }
-    }
-  };
-
-  const increment = () => {
-    if (value < 5) {
-      setValue((value) => value + 1);
-    }
-  };
-
-  const decrement = () => {
-    if (value > 1) {
-      setValue((value) => value - 1);
     }
   };
   return (
@@ -123,45 +56,18 @@ export const Buy = ({ price }: Props) => {
           {account}{" "}
         </span>
       </div>
-      <div className={classes.title}>Click buy to mint your NFT.</div>
+      <div className={classes.title}>Click "Mint NFT" to mint your NFT.</div>
 
       <Fragment>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingTop: " 12px",
-          }}
-        >
-          <div onClick={decrement}>
-            <IconButton>
-              <RemoveCircleOutlinedIcon />
-            </IconButton>
-          </div>
-          <div style={{ fontSize: "22px", width: "60px", textAlign: "center" }}>
-            {value}
-          </div>
-          <div onClick={increment}>
-            <IconButton>
-              <AddCircleOutlinedIcon />
-            </IconButton>
-          </div>
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            paddingTop: "8px",
-            paddingBottom: "8px",
-          }}
-        >
-          Your Rewards : {rewardValue} BNB
-        </div>
         <div
           style={{
             textAlign: "center",
             paddingTop: "8px",
             paddingBottom: "16px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
           <Button
@@ -179,25 +85,7 @@ export const Buy = ({ price }: Props) => {
           >
             {" "}
             Mint NFT
-          </Button>
-
-          <Button
-            onClick={handleClaimRewards}
-            color="primary"
-            sx={{
-              fontSize: "12px",
-              height: "36px",
-              width: "150px",
-              backgroundColor: "#000",
-              borderRadius: "18px",
-              marginLeft: "8px",
-            }}
-            variant="contained"
-            disabled={rewardValue > 0 && nfts!.length > 0 ? false : true}
-          >
-            {" "}
-            Claim Rewards
-          </Button>
+          </Button> 
         </div>
       </Fragment>
     </>

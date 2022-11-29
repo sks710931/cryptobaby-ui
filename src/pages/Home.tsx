@@ -34,7 +34,7 @@ export const Home = () => {
             <div className={classes.center}>
               <div style={{ color: "white" }} className={classes.footer}>
                 Please make sure you are connected to the right network
-                (Binance Smart Chain) and the correct address. Please note: Once
+                (Ethereum Mainnet) and the correct address. Please note: Once
                 you make the purchase, you cannot undone the action.
               </div>
             </div>

@@ -13,7 +13,6 @@ import abi from "../abi/abi.json";
 import { formatUnits } from "@ethersproject/units";
 export const Salecard = () => {
   const [mints, setMints] = useState(0);
-  const [price, setPrice] = useState(0);
   const { account, library  } = useWeb3React<Web3Provider>();
 
     useEffect(() => {
@@ -21,35 +20,34 @@ export const Salecard = () => {
           const provider = new JsonRpcProvider(rpc);
             const contract = new Contract(NFTContract, abi, provider );
             console.log(contract)
-            contract.on("CreateAscendedMastersNFT", async () => {
+            contract.on("CreateCryptoBabyNFT", async () => {
                 const mint2 = await contract.totalSupply();
                 setMints(Number(formatUnits(mint2, 0)));
             });
             const mint1 = await contract.totalSupply();
             setMints(Number(formatUnits(mint1, 0)));
-            const cost = await contract.PRICE();
-            setPrice(Number(formatUnits(cost, "ether")));
+            
         }
             getMints();
     }, [])
   const classes = UseStyle();
   return (
     <div className={classes.main}>
-      <div className={classes.title}>{mints} / 444</div>
+      <div className={classes.title}>{mints} / 2100</div>
       <div className={classes.address}>
         <Button
           className={classes.contractButton}
           variant="text"
           endIcon={<OpenInNewIcon />}
-          onClick={() => window.open(`https://bscscan.com/token/${NFTContract}`, "_blank")}
+          onClick={() => window.open(`https://etherscan.com/token/${NFTContract}`, "_blank")}
         >
           NFT Contract
         </Button>
       </div>
-      <div className={classes.cost}>1 Ascended Masters NFT costs {price} BNB.</div>
+      <div className={classes.cost}>1 Free NFT per wallet.</div>
 
      {!account &&  <Connect />}
-      {account && <Buy price={price} />}
+      {account && <Buy price={0} />}
     </div>
   );
 };
