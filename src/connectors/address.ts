@@ -1,3 +1,3 @@
-export const NFTContract = "0x692EC62439C1d3B56f13B40B459c4257cB9b734e";
-export const rpc = "https://eth-goerli.g.alchemy.com/v2/MPqkYg1sKvXh_9WIhnGqeMI2gGABJ0tB";
-export const chainId = "0x5";
+export const NFTContract = "0x014c6c6d08206eA2464ed125670b757592ce2b2b";
+export const rpc = "https://mainnet.infura.io/v3/12351ae7b81b4899bf671dfc4f732b16";
+export const chainId = "0x1";
