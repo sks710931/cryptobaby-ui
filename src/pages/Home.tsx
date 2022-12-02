@@ -1,9 +1,15 @@
-import { Grid, Theme } from "@mui/material";
+import { Grid, IconButton, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import logo from "../assets/logo.jpg";
 import icons from "../assets/icons.gif";
 import { Salecard } from "../components/Salecard";
+import { Box } from "@mui/system";
+import twitter from "../assets/twitter.png"
+import opensea from "../assets/opensea.png"
+import discord from "../assets/discord.png"
+import telegram from "../assets/telegram.png"
+
 export const Home = () => {
   const classes = UseStyle();
   return (
@@ -11,7 +17,7 @@ export const Home = () => {
       <div
         style={{ width: "100%", height: "100%", backdropFilter: "blur(16px)" }}
       >
-        <Grid  container spacing={2}>
+        <Grid container spacing={2}>
           <Grid item className="top" xs={12}>
             <div className={classes.center}>
               <img src={logo} alt="logo" className={classes.logo} />
@@ -30,15 +36,29 @@ export const Home = () => {
               <img src={icons} alt="logo" className={classes.iconsInvert} />
             </div>
           </Grid>
-          <Grid item xs={12}>
-            <div className={classes.center}>
-              <div style={{ color: "white" }} className={classes.footer}>
-                Please make sure you are connected to the right network
-                (Ethereum Mainnet) and the correct address. Please note: Once
-                you make the purchase, you cannot undone the action.
-              </div>
-            </div>
+          
+          <Grid item xs={12} md={3} lg={4}></Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <IconButton onClick={()=> window.open("https://opensea.io/collection/cbaby", "_blank")}>
+                <img  src={opensea} alt="opensea" />
+              </IconButton>
+              <IconButton onClick={()=> window.open("https://twitter.com/cryptobabyverse", "_blank")}>
+                <img src={twitter} alt="opensea" />
+              </IconButton>
+              <IconButton onClick={()=> window.open("https://discord.gg/9gKzx9wvFe", "_blank")}>
+                <img src={discord} alt="opensea" />
+              </IconButton>
+            </Box>
           </Grid>
+          <Grid item xs={12} md={6} lg={4}></Grid>
         </Grid>
       </div>
     </div>

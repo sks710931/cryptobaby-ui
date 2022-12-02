@@ -30,7 +30,7 @@ export const Buy = ({ price }: Props) => {
         const contract = new Contract(NFTContract, abi, signer);
         const txResult = await contract.mint();
         await txResult.wait();
-        toast.success(`1 CryptoBaby NFT minted successfully!`);
+        toast.success(`1 CBaby NFT minted successfully!`);
       } catch (err: any) {
         console.log(err);
         if (err) {
