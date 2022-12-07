@@ -1,52 +1,61 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Theme } from "@mui/material";
+import { Button, Theme, Typography } from "@mui/material";
 import { createStyles, makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
 import { Buy } from "./Buy";
 import { Connect } from "./Connect";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useWeb3React } from "@web3-react/core";
-import {NFTContract, rpc} from "../connectors/address";
+import { NFTContract, rpc } from "../connectors/address";
 import { JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import { Contract } from "@ethersproject/contracts";
 import abi from "../abi/abi.json";
 import { formatUnits } from "@ethersproject/units";
 export const Salecard = () => {
   const [mints, setMints] = useState(0);
-  const { account, library  } = useWeb3React<Web3Provider>();
+  const { account, library } = useWeb3React<Web3Provider>();
 
-    useEffect(() => {
-        const getMints = async () => {
-          const provider = new JsonRpcProvider(rpc);
-            const contract = new Contract(NFTContract, abi, provider );
-            console.log(contract)
-            contract.on("CreateCryptoBabyNFT", async () => {
-                const mint2 = await contract.totalSupply();
-                setMints(Number(formatUnits(mint2, 0)));
-            });
-            const mint1 = await contract.totalSupply();
-            setMints(Number(formatUnits(mint1, 0)));
-            
-        }
-            getMints();
-    }, [])
+  useEffect(() => {
+    const getMints = async () => {
+      const provider = new JsonRpcProvider(rpc);
+      const contract = new Contract(NFTContract, abi, provider);
+      console.log(contract);
+      contract.on("CreateCryptoBabyNFT", async () => {
+        const mint2 = await contract.totalSupply();
+        setMints(Number(formatUnits(mint2, 0)));
+      });
+      const mint1 = await contract.totalSupply();
+      setMints(Number(formatUnits(mint1, 0)));
+    };
+    getMints();
+  }, []);
   const classes = UseStyle();
   return (
     <div className={classes.main}>
       <div className={classes.title}>{mints} / 2100</div>
+      <Typography  sx={{ml:3, mr:3, mt:2, color: "white"}}>
+        CryptoBaby is a free to mint NFT collection where the goal is to educate
+        people on Cryptocurrency and NFT’s. Many people are interested in Crypto
+        and NFT’s, but don’t have the knowledge to participate safely. This NFT
+        community will foster education of Crypto and NFT’s through fun! There
+        will be an arc built with utility for members. The community will drive
+        the project.
+      </Typography>
       <div className={classes.address}>
         <Button
           className={classes.contractButton}
           variant="text"
           endIcon={<OpenInNewIcon />}
-          onClick={() => window.open(`https://etherscan.com/token/${NFTContract}`, "_blank")}
+          onClick={() =>
+            window.open(`https://etherscan.com/token/${NFTContract}`, "_blank")
+          }
         >
           NFT Contract
         </Button>
       </div>
       <div className={classes.cost}>1 Free NFT per wallet.</div>
 
-     {!account &&  <Connect />}
+      {!account && <Connect />}
       {account && <Buy price={0} />}
     </div>
   );
@@ -62,11 +71,11 @@ const UseStyle = makeStyles((theme: Theme) =>
       boxShadow: "rgba(38, 122, 69, 0.55) 0px 0px 35px;",
     },
     title: {
-      paddingTop: "32px",
+      paddingTop: "16px",
       fontWeight: "600",
       fontSize: "48px",
       textAlign: "center",
-      color:"white"
+      color: "white",
     },
     address: {
       paddingTop: "24px",
@@ -76,7 +85,7 @@ const UseStyle = makeStyles((theme: Theme) =>
       textTransform: "capitalize",
     },
     cost: {
-      paddingTop: "24px",
+      paddingTop: "8px",
       fontWeight: "600",
       fontSize: "18px",
       textAlign: "center",

@@ -83,6 +83,7 @@ useEffect(() => {
             sx={{
               borderRadius: 15,
               backgroundColor: "#000",
+              mb:2
             }}
             onClick={() => setIsOpen(true)}
             color="primary"
@@ -93,6 +94,7 @@ useEffect(() => {
           sx={{
             borderRadius: 15,
             backgroundColor: "#000",
+            mb:2
           }}
           onClick={switchNetwork}
           color="primary"
@@ -135,7 +137,7 @@ useEffect(() => {
         <Divider />
         <DialogActions>
           <div>
-            <Button onClick={() => setIsOpen(false)}>Close</Button>
+            <Button  onClick={() => setIsOpen(false)}>Close</Button>
           </div>
         </DialogActions>
       </Dialog>
@@ -146,7 +148,7 @@ useEffect(() => {
 const UseStyle = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      paddingTop: "24px",
+      paddingTop: "8px",
       fontWeight: "400",
       fontSize: "16px",
       textAlign: "center",

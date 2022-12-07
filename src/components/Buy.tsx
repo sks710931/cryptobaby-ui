@@ -80,6 +80,7 @@ export const Buy = ({ price }: Props) => {
               borderRadius: "18px",
               width: "150px",
               marginLeft: "8px",
+              mt:2
             }}
             variant="contained"
           >
