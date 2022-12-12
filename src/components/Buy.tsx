@@ -28,7 +28,7 @@ export const Buy = ({ price }: Props) => {
         const signer = await library.getSigner();
         
         const contract = new Contract(NFTContract, abi, signer);
-        const txResult = await contract.mint();
+        const txResult = await contract.mint(1);
         await txResult.wait();
         toast.success(`1 CBaby NFT minted successfully!`);
       } catch (err: any) {
